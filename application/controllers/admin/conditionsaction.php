@@ -764,7 +764,10 @@ class conditionsaction extends Survey_Common_Action
             }
         }
 
-        LimeExpressionManager::UpgradeConditionsToRelevance(null, $qid);
+        $surveyid = Yii::app()->request->getParam('surveyid', NULL, 'integer');
+        $sid = Yii::app()->request->getParam('sid', $surveyid, 'integer');
+
+        LimeExpressionManager::UpgradeConditionsToRelevance($sid, $qid);
 
         $this->redirectToConditionStart($qid, $gid);
     }
@@ -1021,7 +1024,10 @@ class conditionsaction extends Survey_Common_Action
             }
         }
 
-        LimeExpressionManager::UpgradeConditionsToRelevance(null, $qid);
+        $surveyid = Yii::app()->request->getParam('surveyid', NULL, 'integer');
+        $sid = Yii::app()->request->getParam('sid', $surveyid, 'integer');
+
+        LimeExpressionManager::UpgradeConditionsToRelevance($sid, $qid);
         $this->redirectToConditionStart($qid, $gid);
     }
 
@@ -1156,7 +1162,9 @@ class conditionsaction extends Survey_Common_Action
             case "delete":
                 LimeExpressionManager::RevertUpgradeConditionsToRelevance(null, $qid); // in case deleted the last condition
                 Condition::model()->deleteRecords(array('cid'=>$p_cid));
-                LimeExpressionManager::UpgradeConditionsToRelevance(null, $qid);
+                $surveyid = Yii::app()->request->getParam('surveyid', NULL, 'integer');
+                $sid = Yii::app()->request->getParam('sid', $surveyid, 'integer');
+                LimeExpressionManager::UpgradeConditionsToRelevance($sid, $qid);
                 $this->redirectToConditionStart($qid, $gid);
                 break;
             // Delete all conditions in this scenario
